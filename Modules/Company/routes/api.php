@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Company\Http\Controllers\CompanyController;
+use Modules\Company\Http\Controllers\UserCompanyController;
 
 /*
  *--------------------------------------------------------------------------
@@ -14,6 +14,7 @@ use Modules\Company\Http\Controllers\CompanyController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('company', CompanyController::class)->names('company');
+Route::middleware(['auth:sanctum'])->prefix('user')->group(function () {
+    Route::get('companies', [UserCompanyController::class, 'index'])->name('user.company.index');
+    Route::post('company', [UserCompanyController::class, 'store'])->name('user.company.store');
 });

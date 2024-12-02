@@ -11,7 +11,9 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<string, array<int, string>>
      */
-    protected $listen = [];
+    protected $listen = [
+        'user.created.after' => []
+    ];
 
     /**
      * Indicates if events should be discovered.

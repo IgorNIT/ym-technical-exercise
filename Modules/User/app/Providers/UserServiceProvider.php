@@ -2,8 +2,10 @@
 
 namespace Modules\User\Providers;
 
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Modules\User\Models\User;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -25,8 +27,11 @@ class UserServiceProvider extends ServiceProvider
         $this->registerCommandSchedules();
         $this->registerTranslations();
         $this->registerConfig();
-        $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+
+        ResetPassword::createUrlUsing(function (User $user, string $token) {
+            return 'https://example.com/reset-password?token='.$token;
+        });
     }
 
     /**
